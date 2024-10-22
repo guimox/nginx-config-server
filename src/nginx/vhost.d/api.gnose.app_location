@@ -1,0 +1,2 @@
+limit_req zone=req_zone burst=10 nodelay;
+limit_req zone=req_zone_wl burst=20 nodelay;
