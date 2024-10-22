@@ -49,8 +49,17 @@ jobs:
             # Navigate to temp directory
             cd /tmp
 
-            # Stop and remove the existing containers
-            docker-compose -f docker-compose.yml down
+            # Force remove existing containers (if they exist)
+            docker rm -f nginx-proxy nginx-proxy-le || true
 
-            # Start the new containers
-            docker-compose -f docker-compose.yml up -d --build
+            # Remove any orphaned containers
+            docker-compose down --remove-orphans
+
+            # Clean up any old Docker resources
+            docker system prune -f
+
+            # Pull latest images
+            docker-compose pull
+
+            # Start new containers
+            docker-compose up -d --build
