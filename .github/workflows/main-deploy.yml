@@ -55,9 +55,6 @@ jobs:
             # Remove any orphaned containers
             docker-compose down --remove-orphans
 
-            # Clean up any old Docker resources
-            docker system prune -f
-
             # Pull latest images
             docker-compose pull
 
