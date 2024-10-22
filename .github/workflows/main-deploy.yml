@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           source: "./docker-compose.yml"
-          target: "/tmp"
+          target: "/nginx-default"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.6
@@ -47,7 +47,7 @@ jobs:
             echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
             # Navigate to temp directory
-            cd /tmp
+            cd /nginx-default
 
             # Stop and remove the existing containers
             docker-compose -f docker-compose.yml down
